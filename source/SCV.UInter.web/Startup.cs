@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SCV.UInter.web.Data;
 using SCV.UInter.web.Models;
 using SCV.UInter.web.Services;
+using SCV.Infrastructure.Data;
 
 namespace SCV.UInter.web
 {
@@ -32,6 +33,12 @@ namespace SCV.UInter.web
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+
+            services.AddDbContext<VacinaContext>(options =>
+               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
